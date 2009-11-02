@@ -222,6 +222,13 @@
           {}
           (json-str view-map))))
 
+;; Lucene views
+
+(defn fti-get [db design-doc index query & [options]]
+  (:json (couch-request
+	  (str *server* db "/_fti/" design-doc "/" index "?"
+	       (url-encode (merge {:q query} (vals2json options)))))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;        Attachments          ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
